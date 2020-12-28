@@ -22,6 +22,14 @@ function App() {
     });
   };
 
+  const resetBtn = (e) => {
+    e.preventDefault();
+
+    setGoogleVisionApiResult(null);
+    setImagePreviewUrl(null);
+    document.getElementById("file-input-id").value = "";
+  };
+
   const handleImageChange = (file) => {
     let reader = new FileReader();
 
@@ -50,6 +58,7 @@ function App() {
       <div className="container-1">
         <form action="">
           <input
+            id="file-input-id"
             type="file"
             accept="image/*"
             className="file-input"
@@ -58,10 +67,13 @@ function App() {
               handleImageChange(e.target.files[0]);
             }}
           />
-          <button onClick={submitbtn} disabled={loading}>
-            Submit
-          </button>
+          {!googleVisionApiResult && (
+            <button onClick={submitbtn} disabled={loading}>
+              Submit
+            </button>
+          )}
           {loading && <CircularProgress size="1.5rem" />}
+          {googleVisionApiResult && <button onClick={resetBtn}>Reset</button>}
         </form>
       </div>
 
