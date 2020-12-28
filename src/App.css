@@ -15,3 +15,13 @@
 .container-3 {
   justify-content: space-around;
 }
+
+.container-1 form {
+  width: 40%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.container-1 input {
+  outline-width: 0;
+}

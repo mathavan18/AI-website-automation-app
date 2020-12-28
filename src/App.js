@@ -1,3 +1,4 @@
+import { CircularProgress } from "@material-ui/core";
 import { useState } from "react";
 import "./App.css";
 import axios from "./axios";
@@ -53,6 +54,7 @@ function App() {
             }}
           />
           <button onClick={submitbtn}>Submit</button>
+          <CircularProgress size="1.5rem" />
         </form>
       </div>
 
