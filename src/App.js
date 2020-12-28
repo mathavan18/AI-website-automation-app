@@ -30,7 +30,7 @@ function App() {
     };
 
     setGoogleVisionApiResult(null);
-    reader.readAsDataURL(file);
+    file && reader.readAsDataURL(file);
   };
 
   const RGBToHex = (r, g, b, a) => {
