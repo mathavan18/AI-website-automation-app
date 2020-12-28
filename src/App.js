@@ -88,7 +88,7 @@ function App() {
         {googleVisionApiResult && (
           <div className="result-text">
             <h2 className="text-label">Text</h2>
-            {googleVisionApiResult?.text[0].description
+            {googleVisionApiResult?.text[0]?.description
               .split("\n")
               .map((element) => {
                 return <div>{element}</div>;
