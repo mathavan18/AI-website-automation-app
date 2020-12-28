@@ -7,13 +7,18 @@ function App() {
   const [inputFile, setInputFile] = useState();
   const [imagePreviewUrl, setImagePreviewUrl] = useState();
   const [googleVisionApiResult, setGoogleVisionApiResult] = useState();
+  const [loading, setLoading] = useState(false);
 
   const submitbtn = async (e) => {
     e.preventDefault();
+
+    setLoading(true);
+
     const formData = new FormData();
     formData.append("image_file", inputFile);
     await axios.post("api/upload", formData).then((response) => {
       setGoogleVisionApiResult(response.data);
+      setLoading(false);
     });
   };
 
@@ -53,8 +58,10 @@ function App() {
               handleImageChange(e.target.files[0]);
             }}
           />
-          <button onClick={submitbtn}>Submit</button>
-          <CircularProgress size="1.5rem" />
+          <button onClick={submitbtn} disabled={loading}>
+            Submit
+          </button>
+          {loading && <CircularProgress size="1.5rem" />}
         </form>
       </div>
 
