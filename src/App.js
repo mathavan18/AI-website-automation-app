@@ -85,7 +85,7 @@ function App() {
           </div>
         )}
 
-        {googleVisionApiResult && (
+        {googleVisionApiResult?.text[0] && (
           <div className="result-text">
             <h2 className="text-label">Text</h2>
             {googleVisionApiResult?.text[0]?.description
