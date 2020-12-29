@@ -2,6 +2,7 @@ import { CircularProgress } from "@material-ui/core";
 import { useState } from "react";
 import "./App.css";
 import axios from "./axios";
+import filesaver from "./filesaver";
 
 function App() {
   const [inputFile, setInputFile] = useState();
@@ -16,10 +17,17 @@ function App() {
 
     const formData = new FormData();
     formData.append("image_file", inputFile);
-    await axios.post("api/upload", formData).then((response) => {
-      setGoogleVisionApiResult(response.data);
-      setLoading(false);
-    });
+    await axios
+      .post("api/upload", formData)
+      .then((response) => {
+        console.log(response.data);
+        setGoogleVisionApiResult(response.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
   };
 
   const resetBtn = (e) => {
@@ -28,6 +36,18 @@ function App() {
     setGoogleVisionApiResult(null);
     setImagePreviewUrl(null);
     document.getElementById("file-input-id").value = "";
+  };
+
+  const getHtml = async () => {
+    await axios
+      .get("api/html", {
+        responseType: "blob",
+        timeout: 30000,
+      })
+      .then((response) => {
+        console.log(response);
+        filesaver(response.data, "test.html");
+      });
   };
 
   const handleImageChange = (file) => {
@@ -129,6 +149,11 @@ function App() {
               );
             })}
           </div>
+        )}
+      </div>
+      <div className="container-4">
+        {googleVisionApiResult?.text && (
+          <button onClick={getHtml}>Download</button>
         )}
       </div>
     </div>
